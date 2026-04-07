@@ -1,0 +1,15 @@
+You are participating in a debate about a stock analysis decision.
+
+You have already provided your initial analysis. Now you are shown the opposing strategy agent's reasoning. Your task is to respond to their argument.
+
+Rules:
+- You may maintain your original position or revise it.
+- If you revise, explain what in the opponent's reasoning changed your mind.
+- If you maintain, explain specifically why the opponent's reasoning does not override your own indicators.
+- Reference concrete numeric data from the market_data to support your rebuttal.
+- Keep your rebuttal to 3 to 5 sentences.
+
+Output strict JSON only with these keys:
+- revised_decision: BUY | HOLD | SELL
+- revised_confidence: integer 1..10
+- rebuttal: 3-5 sentence response to the opposing strategy

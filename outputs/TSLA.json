@@ -1,0 +1,52 @@
+{
+  "ticker": "TSLA",
+  "run_date": "2026-04-04",
+  "market_data_summary": {
+    "ticker": "TSLA",
+    "run_date": "2026-04-04",
+    "current_price": 360.59,
+    "price_30d_ago": 411.71,
+    "pct_change_30d": -12.42,
+    "avg_daily_volume": 61862030,
+    "volatility_30d": 0.0248,
+    "moving_avg_20d": 383.86,
+    "moving_avg_50d": 403.48,
+    "volume_trend_ratio_10d_over_prev20d": 1.133,
+    "high_52w": 489.88,
+    "low_52w": 221.86,
+    "distance_from_52w_high_pct": -26.39,
+    "distance_from_52w_low_pct": 62.53,
+    "recent_drawdown_90d_pct": -26.39,
+    "rsi_14": 38.64
+  },
+  "strategy_a": {
+    "name": "Momentum Trader",
+    "decision": "SELL",
+    "confidence": 8,
+    "justification": "The stock TSLA is experiencing a decline in momentum, with a 30-day percentage change of -12.42%, indicating a weakening trend. Additionally, the moving average of 20 days (383.86) is below the 50-day moving average (403.48), suggesting a downward trend. The volume trend ratio of 1.133 over the previous 20 days indicates increased trading activity, but the volatility of 0.0248 over 30 days and the recent drawdown of -26.39% over 90 days further support the decision to reduce exposure to this stock. The RSI of 38.64 also suggests the stock is not in an oversold condition, reducing the likelihood of a near-term rebound."
+  },
+  "strategy_b": {
+    "name": "Value Contrarian",
+    "decision": "BUY",
+    "confidence": 8,
+    "justification": "The stock TSLA is currently trading at a distance of -26.39% from its 52-week high and 62.53% from its 52-week low, indicating a potential buying opportunity. The recent drawdown of -26.39% over the past 90 days and a 30-day price change of -12.42% suggest that the market may have overreacted, creating an asymmetric setup. Additionally, the RSI-14 value of 38.64 indicates that the stock is not in overbought territory, further supporting a buy decision. With the stock's current price below its moving averages, this could be a good time to buy."
+  },
+  "evaluator": {
+    "agents_agree": false,
+    "analysis": "The disagreement between the Momentum Trader and Value Contrarian strategies stems from their differing philosophies, with the former focusing on trend continuation and the latter on mean reversion. The Momentum Trader's decision to sell is driven by the stock's 30-day percentage change of -12.42% and the downward trend indicated by the moving averages (20d: 383.86, 50d: 403.48), while the Value Contrarian's buy decision is based on the stock's distance from its 52-week high (-26.39%) and low (62.53%), as well as the RSI-14 value of 38.64. The strategies also diverge on their interpretation of the recent drawdown of -26.39% over 90 days, with the Momentum Trader seeing it as a sign of weakness and the Value Contrarian viewing it as a potential buying opportunity. The volatility of 0.0248 over 30 days further complicates the analysis, as it may indicate a higher risk environment that could either accelerate a downturn or provide a catalyst for a rebound."
+  },
+  "debate": {
+    "momentum_rebuttal": {
+      "name": "Momentum Trader",
+      "revised_decision": "SELL",
+      "revised_confidence": 9,
+      "rebuttal": "The opposing strategy's reasoning does not override my own indicators because it relies heavily on mean reversion narratives, which I believe are less relevant given the current momentum trend. The stock's 30-day percentage change of -12.42% and the moving average of 20 days (383.86) being below the 50-day moving average (403.48) still suggest a downward trend. Furthermore, the volatility of 0.0248 over 30 days and the recent drawdown of -26.39% over 90 days support my decision to reduce exposure to this stock, as the risk of further decline outweighs the potential for a near-term rebound."
+    },
+    "contrarian_rebuttal": {
+      "name": "Value Contrarian",
+      "revised_decision": "BUY",
+      "revised_confidence": 9,
+      "rebuttal": "The Momentum Trader's reasoning does not override my original analysis because it focuses on short-term momentum indicators, such as the 30-day percentage change and the moving average crossover, which may not capture the stock's long-term value. In contrast, my analysis highlights the stock's significant distance from its 52-week high of -26.39% and its relatively low RSI-14 value of 38.64, indicating a potential buying opportunity. The recent drawdown of -26.39% over the past 90 days also suggests that the market may have overreacted, creating an asymmetric setup. Furthermore, the stock's current price of 360.59 is still 62.53% above its 52-week low, providing a margin of safety for investors."
+    }
+  }
+}

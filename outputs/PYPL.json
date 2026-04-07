@@ -1,0 +1,38 @@
+{
+  "ticker": "PYPL",
+  "run_date": "2026-04-04",
+  "market_data_summary": {
+    "ticker": "PYPL",
+    "run_date": "2026-04-04",
+    "current_price": 45.34,
+    "price_30d_ago": 41.73,
+    "pct_change_30d": 8.65,
+    "avg_daily_volume": 23223833,
+    "volatility_30d": 0.0253,
+    "moving_avg_20d": 45.03,
+    "moving_avg_50d": 45.73,
+    "volume_trend_ratio_10d_over_prev20d": 0.686,
+    "high_52w": 78.22,
+    "low_52w": 39.08,
+    "distance_from_52w_high_pct": -42.04,
+    "distance_from_52w_low_pct": 16.02,
+    "recent_drawdown_90d_pct": -27.92,
+    "rsi_14": 51.89
+  },
+  "strategy_a": {
+    "name": "Momentum Trader",
+    "decision": "BUY",
+    "confidence": 8,
+    "justification": "The stock shows a positive momentum with a pct_change_30d of 8.65%, indicating a strong upward trend. The moving_avg_20d of 45.03 is close to the current price of 45.34, and slightly below the moving_avg_50d of 45.73, suggesting a potential for further growth. The volatility_30d of 0.0253 is relatively low, which could indicate a stable increase. However, the volume_trend_ratio_10d_over_prev20d of 0.686 is below 1, which might be a concern, but the overall trend and low volatility support a buy decision."
+  },
+  "strategy_b": {
+    "name": "Value Contrarian",
+    "decision": "BUY",
+    "confidence": 8,
+    "justification": "The stock PYPL is currently trading at a significant distance from its 52-week high, with a distance_from_52w_high_pct of -42.04, indicating a potential overreaction to the downside. Additionally, the recent_drawdown_90d_pct of -27.92 suggests a sharp decline, which can be an opportunity for a value contrarian. The rsi_14 of 51.89 is near neutral, and the pct_change_30d of 8.65 indicates a recent upward trend, further supporting a buy decision. The distance_from_52w_low_pct of 16.02 also indicates the stock has some room to grow from its 52-week low."
+  },
+  "evaluator": {
+    "agents_agree": true,
+    "analysis": "Both strategies converged on a BUY decision due to the stock's recent upward trend, with a 30-day percentage change of 8.65% and a relatively low volatility of 0.0253. Strategy A, Momentum Trader, focused on the momentum and stability indicators, while Strategy B, Value Contrarian, identified the stock's potential for growth from its current distance from the 52-week high and low. The consensus is supported by the proximity of the current price to the moving averages and the neutral RSI of 51.89. The confidence levels of both strategies are also aligned at 8, indicating a strong agreement on the BUY decision."
+  }
+}

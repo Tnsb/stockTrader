@@ -1,0 +1,52 @@
+{
+  "ticker": "NVDA",
+  "run_date": "2026-04-04",
+  "market_data_summary": {
+    "ticker": "NVDA",
+    "run_date": "2026-04-04",
+    "current_price": 177.39,
+    "price_30d_ago": 187.9,
+    "pct_change_30d": -5.59,
+    "avg_daily_volume": 192887940,
+    "volatility_30d": 0.024,
+    "moving_avg_20d": 177.62,
+    "moving_avg_50d": 182.65,
+    "volume_trend_ratio_10d_over_prev20d": 0.932,
+    "high_52w": 207.04,
+    "low_52w": 94.31,
+    "distance_from_52w_high_pct": -14.32,
+    "distance_from_52w_low_pct": 88.09,
+    "recent_drawdown_90d_pct": -9.29,
+    "rsi_14": 46.9
+  },
+  "strategy_a": {
+    "name": "Momentum Trader",
+    "decision": "SELL",
+    "confidence": 8,
+    "justification": "The stock's momentum is weakening, as indicated by a negative pct_change_30d of -5.59 and a moving_avg_20d of 177.62 that is below the moving_avg_50d of 182.65. Additionally, the volume_trend_ratio_10d_over_prev20d is 0.932, which suggests a decrease in trading volume over the past 10 days compared to the previous 20 days. The volatility_30d of 0.024 is relatively low, but the recent drawdown of -9.29% over 90 days and the distance from the 52-week high of -14.32% also support a bearish outlook. Overall, these indicators suggest that the stock's upward momentum is fading."
+  },
+  "strategy_b": {
+    "name": "Value Contrarian",
+    "decision": "BUY",
+    "confidence": 8,
+    "justification": "The stock is currently 14.32% away from its 52-week high, indicating a potential overreaction to the downside. With an RSI of 46.9, it suggests the stock is not in the oversold territory but is approaching a buying opportunity. The recent 30-day price change of -5.59% and the 90-day drawdown of -9.29% also indicate a potential value opportunity. Given the distance from the 52-week low at 88.09%, there is significant room for upside, supporting a contrarian buy decision."
+  },
+  "evaluator": {
+    "agents_agree": false,
+    "analysis": "The disagreement between the two strategies stems from their differing philosophies, with Momentum Trader focusing on short-term trends and Value Contrarian looking for long-term value opportunities. Momentum Trader's decision to sell is driven by the stock's weakening momentum, as evidenced by a -5.59% price change over 30 days and a moving average crossover, with the 20-day average of 177.62 falling below the 50-day average of 182.65. In contrast, Value Contrarian's buy decision is based on the stock's potential undervaluation, with an RSI of 46.9 and a distance of 14.32% from its 52-week high, suggesting a potential buying opportunity. The two strategies also diverge on their interpretation of the recent 90-day drawdown of -9.29%, with Momentum Trader seeing it as a bearish signal and Value Contrarian viewing it as a value opportunity."
+  },
+  "debate": {
+    "momentum_rebuttal": {
+      "name": "Momentum Trader",
+      "revised_decision": "SELL",
+      "revised_confidence": 9,
+      "rebuttal": "The Value Contrarian's argument relies heavily on the stock being 14.32% away from its 52-week high, suggesting an overreaction to the downside. However, this overlooks the weakening momentum indicated by a negative pct_change_30d of -5.59 and a moving_avg_20d of 177.62 that is below the moving_avg_50d of 182.65. The volume_trend_ratio_10d_over_prev20d of 0.932 also suggests a decrease in trading volume, which aligns with my original bearish outlook. Furthermore, the recent drawdown of -9.29% over 90 days and the low volatility_30d of 0.024 do not necessarily indicate a buying opportunity, but rather a potential continuation of the downward trend."
+    },
+    "contrarian_rebuttal": {
+      "name": "Value Contrarian",
+      "revised_decision": "BUY",
+      "revised_confidence": 8,
+      "rebuttal": "The Momentum Trader's reasoning does not override my own indicators because it focuses on short-term momentum rather than long-term value. The distance from the 52-week high of -14.32% and the distance from the 52-week low of 88.09% still suggest significant room for upside, supporting a contrarian buy decision. Additionally, the RSI of 46.9 indicates the stock is approaching a buying opportunity, and the recent 30-day price change of -5.59% and the 90-day drawdown of -9.29% also indicate a potential value opportunity, which outweighs the Momentum Trader's concerns about weakening momentum."
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "ticker": "KO",
+  "run_date": "2026-04-04",
+  "market_data_summary": {
+    "ticker": "KO",
+    "run_date": "2026-04-04",
+    "current_price": 76.72,
+    "price_30d_ago": 78.91,
+    "pct_change_30d": -2.78,
+    "avg_daily_volume": 17074207,
+    "volatility_30d": 0.0092,
+    "moving_avg_20d": 76.38,
+    "moving_avg_50d": 77.08,
+    "volume_trend_ratio_10d_over_prev20d": 1.035,
+    "high_52w": 81.56,
+    "low_52w": 65.67,
+    "distance_from_52w_high_pct": -5.93,
+    "distance_from_52w_low_pct": 16.83,
+    "recent_drawdown_90d_pct": -5.93,
+    "rsi_14": 46.11
+  },
+  "strategy_a": {
+    "name": "Momentum Trader",
+    "decision": "HOLD",
+    "confidence": 6,
+    "justification": "The stock's 30-day percentage change is -2.78%, indicating a slight downward trend. However, the moving average of 20 days is 76.38, which is lower than the 50-day moving average of 77.08, suggesting a potential for mean reversion. The volume trend ratio of 1.035 over the last 10 days compared to the previous 20 days shows a slight increase in volume, which could be a sign of strength. The volatility over the last 30 days is 0.0092, which is relatively low. Given these indicators, a hold decision seems most appropriate."
+  },
+  "strategy_b": {
+    "name": "Value Contrarian",
+    "decision": "BUY",
+    "confidence": 8,
+    "justification": "The stock KO is currently trading at a distance of -5.93% from its 52-week high and 16.83% from its 52-week low, indicating a potential undervaluation. With an RSI of 46.11, the stock is not in oversold territory but is approaching it, suggesting a potential buying opportunity. The recent 30-day price change of -2.78% and the recent drawdown of -5.93% over 90 days also indicate a potential overreaction in the market. Given these indicators, the stock appears to be a good value contrarian buy."
+  },
+  "evaluator": {
+    "agents_agree": false,
+    "analysis": "The disagreement between the two strategies stems from their differing philosophies, with Momentum Trader focusing on short-term trends and Value Contrarian looking for undervalued opportunities. Momentum Trader's decision to hold is based on the stock's slight downward trend, with a 30-day percentage change of -2.78%, and relatively low volatility of 0.0092. In contrast, Value Contrarian's decision to buy is driven by the stock's distance from its 52-week high and low, with a distance of -5.93% from the high and 16.83% from the low, as well as an RSI of 46.11, indicating potential undervaluation. The confidence levels of 6 for Momentum Trader and 8 for Value Contrarian further highlight the divergence in their assessments."
+  },
+  "debate": {
+    "momentum_rebuttal": {
+      "name": "Momentum Trader",
+      "revised_decision": "HOLD",
+      "revised_confidence": 7,
+      "rebuttal": "The Value Contrarian's argument relies heavily on the stock's distance from its 52-week high and low, as well as the RSI of 46.11, which they believe indicates undervaluation and a potential buying opportunity. However, as a Momentum Trader, I prioritize the trend and momentum indicators, such as the pct_change_30d of -2.78% and the moving_avg_20d being lower than the moving_avg_50d, suggesting a continued downward trend. The volatility_30d of 0.0092 is relatively low, which supports my original hold decision. The opponent's reasoning does not override my indicators, as the volume_trend_ratio_10d_over_prev20d of 1.035 is only a slight increase, not strong enough to reverse the current momentum."
+    },
+    "contrarian_rebuttal": {
+      "name": "Value Contrarian",
+      "revised_decision": "BUY",
+      "revised_confidence": 8,
+      "rebuttal": "The Momentum Trader's reasoning does not override my original analysis because it focuses on short-term momentum indicators rather than the stock's value relative to its 52-week range. The distance_from_52w_high_pct of -5.93% and distance_from_52w_low_pct of 16.83% still suggest the stock is undervalued. Additionally, the rsi_14 of 46.11 indicates the stock is approaching oversold territory, which aligns with my contrarian strategy. The opponent's mention of a slight downward trend and low volatility does not outweigh the potential for a value-driven rebound."
+    }
+  }
+}

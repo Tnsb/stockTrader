@@ -1,0 +1,52 @@
+{
+  "ticker": "JNJ",
+  "run_date": "2026-04-04",
+  "market_data_summary": {
+    "ticker": "JNJ",
+    "run_date": "2026-04-04",
+    "current_price": 243.04,
+    "price_30d_ago": 246.91,
+    "pct_change_30d": -1.57,
+    "avg_daily_volume": 8177410,
+    "volatility_30d": 0.01,
+    "moving_avg_20d": 240.46,
+    "moving_avg_50d": 238.9,
+    "volume_trend_ratio_10d_over_prev20d": 0.981,
+    "high_52w": 248.56,
+    "low_52w": 146.36,
+    "distance_from_52w_high_pct": -2.22,
+    "distance_from_52w_low_pct": 66.06,
+    "recent_drawdown_90d_pct": -2.22,
+    "rsi_14": 53.41
+  },
+  "strategy_a": {
+    "name": "Momentum Trader",
+    "decision": "HOLD",
+    "confidence": 6,
+    "justification": "The stock's 30-day percentage change is -1.57%, indicating a slight downward trend. However, the moving average of 20 days is 240.46, which is higher than the 50-day moving average of 238.9, suggesting some underlying strength. The volume trend ratio over the last 10 days compared to the previous 20 days is 0.981, which is close to 1, indicating stable volume. The volatility over 30 days is 0.01, which is relatively low. Given these mixed signals, a hold decision seems most appropriate."
+  },
+  "strategy_b": {
+    "name": "Value Contrarian",
+    "decision": "BUY",
+    "confidence": 8,
+    "justification": "The stock is trading at a distance of -2.22% from its 52-week high and 66.06% from its 52-week low, indicating a potential buying opportunity as it has not overextended to the upside. The recent drawdown of -2.22% over 90 days and the RSI of 53.41 suggest that the stock has not entered oversold territory but is rather in a neutral position. The 30-day price change of -1.57% also indicates a slight pullback, which could be seen as a buying opportunity under the contrarian strategy. Overall, the stock's current positioning relative to its 52-week range and recent price action supports a buy decision."
+  },
+  "evaluator": {
+    "agents_agree": false,
+    "analysis": "The Momentum Trader and Value Contrarian strategies diverge due to philosophical differences, with Momentum Trader focusing on short-term trends and Value Contrarian seeking undervalued opportunities. Momentum Trader's hold decision is driven by the stock's slight downward trend, as indicated by a 30-day percentage change of -1.57%, and stable volume trend ratio of 0.981. In contrast, Value Contrarian's buy decision is based on the stock's distance from its 52-week high and low, with a -2.22% distance from the high and 66.06% distance from the low, suggesting a potential buying opportunity. The RSI of 53.41 and recent drawdown of -2.22% over 90 days also support Value Contrarian's buy decision, highlighting the divergence in the two strategies' assessments of the stock's current positioning."
+  },
+  "debate": {
+    "momentum_rebuttal": {
+      "name": "Momentum Trader",
+      "revised_decision": "HOLD",
+      "revised_confidence": 7,
+      "rebuttal": "The Value Contrarian's argument for a buy decision is based on the stock's distance from its 52-week high and low, as well as its recent drawdown and RSI. However, as a Momentum Trader, I prioritize the trend and momentum indicators, such as the pct_change_30d of -1.57% and the moving_avg_20d being higher than the moving_avg_50d, which suggests some underlying strength but not enough to override the current downward trend. The volatility_30d of 0.01 is also relatively low, which supports a hold decision. The opponent's reasoning does not override my own indicators, as the volume_trend_ratio_10d_over_prev20d of 0.981 indicates stable volume, further supporting a hold decision."
+    },
+    "contrarian_rebuttal": {
+      "name": "Value Contrarian",
+      "revised_decision": "BUY",
+      "revised_confidence": 8,
+      "rebuttal": "The Momentum Trader's reasoning does not override my original indicators because the stock's distance from its 52-week high of -2.22% and distance from its 52-week low of 66.06% still suggest it has not reached overbought territory. The opponent's mention of a slight downward trend with a 30-day percentage change of -1.57% aligns with my contrarian strategy, which seeks to buy on slight pullbacks. Furthermore, the RSI of 53.41 and recent drawdown of -2.22% over 90 days indicate the stock is not in oversold territory but rather in a neutral position, supporting my original buy decision."
+    }
+  }
+}

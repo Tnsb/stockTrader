@@ -1,0 +1,47 @@
+{
+  "strategies": [
+    "Momentum Trader",
+    "Value Contrarian"
+  ],
+  "stocks_analyzed": [
+    "JNJ",
+    "NVDA",
+    "PYPL",
+    "KO",
+    "TSLA"
+  ],
+  "total_agreements": 1,
+  "total_disagreements": 4,
+  "results": [
+    {
+      "ticker": "JNJ",
+      "a_decision": "HOLD",
+      "b_decision": "BUY",
+      "agree": false
+    },
+    {
+      "ticker": "NVDA",
+      "a_decision": "SELL",
+      "b_decision": "BUY",
+      "agree": false
+    },
+    {
+      "ticker": "PYPL",
+      "a_decision": "BUY",
+      "b_decision": "BUY",
+      "agree": true
+    },
+    {
+      "ticker": "KO",
+      "a_decision": "HOLD",
+      "b_decision": "BUY",
+      "agree": false
+    },
+    {
+      "ticker": "TSLA",
+      "a_decision": "SELL",
+      "b_decision": "BUY",
+      "agree": false
+    }
+  ]
+}

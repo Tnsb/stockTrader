@@ -1,0 +1,33 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	market_data_node(market_data_node)
+	strategy_a_node(strategy_a_node)
+	strategy_b_node(strategy_b_node)
+	evaluator_node(evaluator_node)
+	consensus_node(consensus_node)
+	disagreement_node(disagreement_node)
+	debate_a_rebuttal_node(debate_a_rebuttal_node)
+	debate_b_rebuttal_node(debate_b_rebuttal_node)
+	save_output_node(save_output_node)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> market_data_node;
+	consensus_node --> save_output_node;
+	debate_a_rebuttal_node --> save_output_node;
+	debate_b_rebuttal_node --> save_output_node;
+	disagreement_node --> debate_a_rebuttal_node;
+	disagreement_node --> debate_b_rebuttal_node;
+	evaluator_node -. &nbsp;consensus&nbsp; .-> consensus_node;
+	evaluator_node -. &nbsp;disagreement&nbsp; .-> disagreement_node;
+	market_data_node --> strategy_a_node;
+	market_data_node --> strategy_b_node;
+	strategy_a_node --> evaluator_node;
+	strategy_b_node --> evaluator_node;
+	save_output_node --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
