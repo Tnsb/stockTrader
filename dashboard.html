@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StockTrader — Multi-Agent Analysis Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface-2: #222632;
+    --border: #2a2e3b;
+    --text: #e4e6ed;
+    --text-muted: #8b8fa3;
+    --accent: #6c72cb;
+    --accent-light: #8a8fdb;
+    --buy: #22c55e;
+    --buy-bg: rgba(34,197,94,0.12);
+    --hold: #eab308;
+    --hold-bg: rgba(234,179,8,0.12);
+    --sell: #ef4444;
+    --sell-bg: rgba(239,68,68,0.12);
+    --agree: #22c55e;
+    --disagree: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 32px 40px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .logo {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent), #cb6ce6);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+  }
+
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .header h1 span {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 15px;
+    margin-left: 10px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .run-date {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .metric-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .metric-value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .metric-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .stock-table {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stock-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stock-table th {
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+  }
+
+  .stock-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .stock-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .stock-table tr:hover td {
+    background: rgba(108, 114, 203, 0.04);
+  }
+
+  .ticker-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+  }
+
+  .price-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .change-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .change-positive { color: var(--buy); }
+  .change-negative { color: var(--sell); }
+
+  .decision-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .decision-BUY { background: var(--buy-bg); color: var(--buy); }
+  .decision-HOLD { background: var(--hold-bg); color: var(--hold); }
+  .decision-SELL { background: var(--sell-bg); color: var(--sell); }
+
+  .confidence-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .confidence-bar {
+    width: 60px;
+    height: 6px;
+    background: var(--surface-2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .confidence-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  .confidence-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-muted);
+    min-width: 18px;
+  }
+
+  .verdict-cell {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .verdict-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .verdict-agree .verdict-dot { background: var(--agree); }
+  .verdict-disagree .verdict-dot { background: var(--disagree); }
+
+  .verdict-text {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .verdict-agree .verdict-text { color: var(--agree); }
+  .verdict-disagree .verdict-text { color: var(--disagree); }
+
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .architecture-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .arch-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .arch-node {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+    max-width: 220px;
+  }
+
+  .arch-node.data {
+    background: rgba(108, 114, 203, 0.15);
+    border: 1px solid rgba(108, 114, 203, 0.3);
+    color: var(--accent-light);
+  }
+
+  .arch-node.agent-a {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    color: #4ade80;
+  }
+
+  .arch-node.agent-b {
+    background: rgba(234, 179, 8, 0.1);
+    border: 1px solid rgba(234, 179, 8, 0.25);
+    color: #facc15;
+  }
+
+  .arch-node.evaluator {
+    background: rgba(203, 108, 230, 0.12);
+    border: 1px solid rgba(203, 108, 230, 0.3);
+    color: #d08ce8;
+  }
+
+  .arch-node.outcome {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  .arch-connector {
+    width: 2px;
+    height: 16px;
+    background: var(--border);
+  }
+
+  .arch-branch {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .arch-branch-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+  }
+
+  .arch-split {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    height: 20px;
+  }
+
+  .arch-split::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 70%;
+    height: 2px;
+    background: var(--border);
+    transform: translateX(-50%);
+  }
+
+  .arch-split::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+  }
+
+  .arch-outcomes {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .arch-outcomes .arch-node {
+    max-width: 130px;
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+
+  .debate-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .debate-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .debate-item:last-child { border-bottom: none; }
+
+  .debate-ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .debate-result {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .debate-stance {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .debate-arrow {
+    color: var(--text-muted);
+    font-size: 10px;
+  }
+
+  .tech-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .tech-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .footer {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .footer-text {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo">ST</div>
+    <h1>StockTrader <span>Multi-Agent Analysis Dashboard</span></h1>
+  </div>
+  <div class="header-right">
+    <span class="tag">LangGraph</span>
+    <span class="tag">Groq API</span>
+    <span class="tag">llama-3.3-70b</span>
+    <span class="run-date">Run: Apr 4, 2026</span>
+  </div>
+</div>
+
+<div class="metrics-row">
+  <div class="metric-card">
+    <div class="metric-label">Stocks Analyzed</div>
+    <div class="metric-value">5</div>
+    <div class="metric-sub">JNJ, NVDA, PYPL, KO, TSLA</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Agreements</div>
+    <div class="metric-value" style="color: var(--agree);">1</div>
+    <div class="metric-sub">Both agents aligned</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Disagreements</div>
+    <div class="metric-value" style="color: var(--disagree);">4</div>
+    <div class="metric-sub">Competing signals</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Debate Rounds</div>
+    <div class="metric-value" style="color: var(--accent-light);">4</div>
+    <div class="metric-sub">Post-disagreement rebuttals</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-label">Position Changes</div>
+    <div class="metric-value">0</div>
+    <div class="metric-sub">Agents held firm</div>
+  </div>
+</div>
+
+<div class="main-grid">
+  <div class="left-column">
+    <div class="section-title">Analysis Results</div>
+    <div class="stock-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Price</th>
+            <th>30d Change</th>
+            <th>Momentum Trader</th>
+            <th>Conf.</th>
+            <th>Value Contrarian</th>
+            <th>Conf.</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ticker-cell">JNJ</td>
+            <td class="price-cell">$243.04</td>
+            <td class="change-cell change-negative">-1.57%</td>
+            <td><span class="decision-badge decision-HOLD">HOLD</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:60%;background:var(--hold);"></div></div>
+                <span class="confidence-num">6</span>
+              </div>
+            </td>
+            <td><span class="decision-badge decision-BUY">BUY</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--buy);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td>
+              <div class="verdict-cell verdict-disagree">
+                <div class="verdict-dot"></div>
+                <span class="verdict-text">Disagree</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="ticker-cell">NVDA</td>
+            <td class="price-cell">$177.39</td>
+            <td class="change-cell change-negative">-5.59%</td>
+            <td><span class="decision-badge decision-SELL">SELL</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--sell);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td><span class="decision-badge decision-BUY">BUY</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--buy);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td>
+              <div class="verdict-cell verdict-disagree">
+                <div class="verdict-dot"></div>
+                <span class="verdict-text">Disagree</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="ticker-cell">PYPL</td>
+            <td class="price-cell">$45.34</td>
+            <td class="change-cell change-positive">+8.65%</td>
+            <td><span class="decision-badge decision-BUY">BUY</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--buy);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td><span class="decision-badge decision-BUY">BUY</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--buy);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td>
+              <div class="verdict-cell verdict-agree">
+                <div class="verdict-dot"></div>
+                <span class="verdict-text">Agree</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="ticker-cell">KO</td>
+            <td class="price-cell">$76.72</td>
+            <td class="change-cell change-negative">-2.78%</td>
+            <td><span class="decision-badge decision-HOLD">HOLD</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:60%;background:var(--hold);"></div></div>
+                <span class="confidence-num">6</span>
+              </div>
+            </td>
+            <td><span class="decision-badge decision-BUY">BUY</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--buy);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td>
+              <div class="verdict-cell verdict-disagree">
+                <div class="verdict-dot"></div>
+                <span class="verdict-text">Disagree</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="ticker-cell">TSLA</td>
+            <td class="price-cell">$360.59</td>
+            <td class="change-cell change-negative">-12.42%</td>
+            <td><span class="decision-badge decision-SELL">SELL</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--sell);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td><span class="decision-badge decision-BUY">BUY</span></td>
+            <td>
+              <div class="confidence-bar-container">
+                <div class="confidence-bar"><div class="confidence-fill" style="width:80%;background:var(--buy);"></div></div>
+                <span class="confidence-num">8</span>
+              </div>
+            </td>
+            <td>
+              <div class="verdict-cell verdict-disagree">
+                <div class="verdict-dot"></div>
+                <span class="verdict-text">Disagree</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="right-column">
+    <div class="architecture-card">
+      <div class="section-title">LangGraph Pipeline</div>
+      <div class="arch-flow">
+        <div class="arch-node data">Market Data (yfinance)</div>
+        <div class="arch-connector"></div>
+        <div class="arch-split"></div>
+        <div class="arch-branch">
+          <div class="arch-branch-line">
+            <div class="arch-connector"></div>
+            <div class="arch-node agent-a">Momentum Trader</div>
+          </div>
+          <div class="arch-branch-line">
+            <div class="arch-connector"></div>
+            <div class="arch-node agent-b">Value Contrarian</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-node evaluator">Evaluator</div>
+        <div class="arch-connector"></div>
+        <div class="arch-outcomes">
+          <div class="arch-node outcome">Consensus</div>
+          <div class="arch-node outcome">Disagree → Debate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="debate-card">
+      <div class="section-title">Debate Mode Results</div>
+      <div class="debate-item">
+        <div class="debate-ticker">JNJ</div>
+        <div class="debate-result">
+          <span class="debate-stance"><span class="decision-badge decision-HOLD" style="font-size:10px;padding:2px 6px;">HOLD 6</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-HOLD" style="font-size:10px;padding:2px 6px;">HOLD 7</span></span>
+          &nbsp;vs&nbsp;
+          <span class="debate-stance"><span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span></span>
+        </div>
+      </div>
+      <div class="debate-item">
+        <div class="debate-ticker">NVDA</div>
+        <div class="debate-result">
+          <span class="debate-stance"><span class="decision-badge decision-SELL" style="font-size:10px;padding:2px 6px;">SELL 8</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-SELL" style="font-size:10px;padding:2px 6px;">SELL 9</span></span>
+          &nbsp;vs&nbsp;
+          <span class="debate-stance"><span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span></span>
+        </div>
+      </div>
+      <div class="debate-item">
+        <div class="debate-ticker">KO</div>
+        <div class="debate-result">
+          <span class="debate-stance"><span class="decision-badge decision-HOLD" style="font-size:10px;padding:2px 6px;">HOLD 6</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-HOLD" style="font-size:10px;padding:2px 6px;">HOLD 7</span></span>
+          &nbsp;vs&nbsp;
+          <span class="debate-stance"><span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span></span>
+        </div>
+      </div>
+      <div class="debate-item">
+        <div class="debate-ticker">TSLA</div>
+        <div class="debate-result">
+          <span class="debate-stance"><span class="decision-badge decision-SELL" style="font-size:10px;padding:2px 6px;">SELL 8</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-SELL" style="font-size:10px;padding:2px 6px;">SELL 9</span></span>
+          &nbsp;vs&nbsp;
+          <span class="debate-stance"><span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 8</span> <span class="debate-arrow">→</span> <span class="decision-badge decision-BUY" style="font-size:10px;padding:2px 6px;">BUY 9</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left">
+    <div class="tech-badges">
+      <span class="tech-badge">Python 3.12</span>
+      <span class="tech-badge">LangGraph</span>
+      <span class="tech-badge">Groq API</span>
+      <span class="tech-badge">yfinance</span>
+      <span class="tech-badge">Pydantic</span>
+    </div>
+  </div>
+  <span class="footer-text">StockTrader — Competing AI Strategy Agents &middot; CMU Spring 2026</span>
+</div>
+
+</body>
+</html>

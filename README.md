@@ -43,10 +43,8 @@ stockTrader/
     summary.json
     langgraph_workflow.mmd
   report/
-    report.md
-    report.pdf
-    ai_use_appendix.md
-    ai_use_appendix.pdf
+    report.pdf           # comparative analysis 
+    ai_use_appendix.pdf  # AI use appendix 
 ```
 
 ## Setup
