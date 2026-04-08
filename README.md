@@ -48,7 +48,7 @@ stockTrader/
     ai_use_appendix.pdf  # AI use appendix
 ```
 
-**LangGraph in the report:** The last page of `report/report.pdf` is the **workflow graph** (Mermaid source matches `outputs/langgraph_workflow.mmd`). If you regenerate `report.pdf` and need that page again, run `python -m src.embed_workflow_diagram`.
+**LangGraph in the report:** The last page of `report/report.pdf` is a **rendered flowchart** (PNG generated from `outputs/langgraph_workflow.mmd` via `@mermaid-js/mermaid-cli`, also saved as `report/workflow_graph.png`). Re-embed after replacing `report.pdf`: `python -m src.embed_workflow_diagram` (requires Node/npm for `npx`).
 
 Written deliverables for the course are the **PDFs** in `report/` (no Markdown sources in this repository).
 
